@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>444 Maker</title>
+  <meta property="og:title" content="444 Maker">
+  <meta property="og:description" content="v1.3.3 Professional 444/Xmod Json maker.">
+  <meta property="og:image" content="https://444mat-json-maker.netlify.app/embed.png">
+  <meta property="og:url" content="https://444mat-json-maker.netlify.app/">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#03fc73">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .bg { background: linear-gradient(to right, #252525, #454545); border: 0px solid rgb(87, 87, 87); color: white; font-size: 25px; padding: 10px; box-shadow: 0px 0px 10px 6px rgba(66, 66, 66, 0.514); margin-bottom: 20px; }
+    .lbl { cursor: pointer; }
+    .slide { cursor: pointer; }
+    .itemCl { display: block; margin-left: 20px; padding: 5px; border: 1px solid #ccc; }
+    .mRoot { background-color: white; margin-top: 25px; }
+    button { background: linear-gradient(to right, #1aa33f, #98e897); color: white; border: none; padding: 10px; cursor: pointer; }
+    button:hover { background: linear-gradient(to right, #158a34, #80d080); }
+    input, select { padding: 5px; margin: 5px; }
+  </style>
+</head>
+<body>
+  <h1>v1.3.3 JSON Editor</h1>
+  <div class="bg">
+    <div>
+      <input id="search-bar" value="" placeholder="🔎 Type item name here" style="width:400px;margin-bottom:30px">
+    </div>
+    <button onclick="addItem(); kbUpd();">Add</button>
+    <input id="Amount" type="number" value="1" placeholder="1">
+    <select id="item-selected" name="items">
+      <option value="item_apple">Apple</option>
+      <option value="item_anti_gravity_grenade">Anti-Gravity Grenade</option>
+      <option value="item_arrow">Arrow</option>
+      <option value="item_arrow_heart">Arrow Heart</option>
+      <option value="item_arrow_lightbulb">Arrow Lightbulb</option>
+      <option value="item_arena_pistol">Arena Pistol</option>
+      <option value="item_arena_shotgun">Arena Shotgun</option>
+      <option value="item_backpack">Backpack</option>
+      <option value="item_backpack_black">Black Backpack</option>
+      <option value="item_backpack_green">Green Backpack</option>
+      <option value="item_backpack_large_base">Large Base Backpack</option>
+      <option value="item_backpack_large_clover">Large Clover Backpack</option>
+      <option value="item_backpack_large_basketball">Large Basketball Backpack</option>
+      <option value="item_backpack_pink">Pink Backpack</option>
+      <option value="item_backpack_small_base">Small Base Backpack</option>
+      <option value="item_backpack_white">White Backpack</option>
+      <option value="item_backpack_with_flashlight">Backpack with Flashlight</option>
+      <option value="item_balloon">Balloon</option>
+      <option value="item_balloon_heart">Heart Balloon</option>
+      <option value="item_banana">Banana</option>
+      <option value="item_baseball_bat">Baseball Bat</option>
+      <option value="item_big_cup">Big Cup</option>
+      <option value="item_boombox">Boombox</option>
+      <option value="item_box_fan">Box Fan</option>
+      <option value="item_boombox_neon">Neon Boombox</option>
+      <option value="item_calculator">Calculator</option>
+      <option value="item_cardboard_box">Cardboard Box</option>
+      <option value="item_cash">Cash</option>
+      <option value="item_cash_pile">Cash Pile</option>
+      <option value="item_cash_mega_pile">Mega Cash Pile</option>
+      <option value="item_clapper">Clapper</option>
+      <option value="item_cluster_grenade">Cluster Grenade</option>
+      <option value="item_cola">Cola</option>
+      <option value="item_cola_large">Large Cola</option>
+      <option value="item_company_ration">Company Ration</option>
+      <option value="item_company_ration_heal">Company Ration (Heal)</option>
+      <option value="item_cracker">Cracker</option>
+      <option value="item_crate">Crate</option>
+      <option value="item_crossbow">Crossbow</option>
+      <option value="item_crossbow_heart">Heart Crossbow</option>
+      <option value="item_crowbar">Crowbar</option>
+      <option value="item_disc">Disc</option>
+      <option value="item_disposable_camera">Disposable Camera</option>
+      <option value="item_dynamite">Dynamite</option>
+      <option value="item_dynamite_cube">Dynamite Cube</option>
+      <option value="item_hawaiian_drum">Drums</option>
+      <option value="item_egg">Yummy Egg!</option>
+      <option value="item_flaregun">Flare Gun</option>
+      <option value="item_flashbang">Flashbang</option>
+      <option value="item_flashlight">Flashlight</option>
+      <option value="item_flashlight_mega">Mega Flashlight</option>
+      <option value="item_flashlight_red">Red Flashlight</option>
+      <option value="item_floppy3">Floppy 3</option>
+      <option value="item_floppy5">Floppy 5</option>
+      <option value="item_football">Football</option>
+      <option value="item_frying_pan">Frying Pan</option>
+      <option value="item_glowstick">Glowstick</option>
+      <option value="item_goldbar">Gold Bar</option>
+      <option value="item_grenade">Grenade</option>
+      <option value="item_heart_chunk">Heart Chunk</option>
+      <option value="item_heart_gun">Heart Gun</option>
+      <option value="item_heartchocolatebox">Heart Chocolate Box</option>
+      <option value="item_hh_key">HH Key</option>
+      <option value="item_hookshot">Hookshot</option>
+      <option value="item_hoverpad">Hoverpad</option>
+      <option value="item_impulse_grenade">Impulse Grenade</option>
+      <option value="item_jetpack">Jetpack</option>
+      <option value="item_keycard">Keycard</option>
+      <option value="item_lance">Lance</option>
+      <option value="item_large_banana">Large Banana</option>
+      <option value="item_mug">Mug</option>
+      <option value="item_landmine">Mine</option>
+      <option value="item_nut">Nut</option>
+      <option value="item_ogre_hands">Ogre Hands</option>
+      <option value="item_ore_copper_l">Large Copper Ore</option>
+      <option value="item_ore_copper_m">Medium Copper Ore</option>
+      <option value="item_ore_copper_s">Small Copper Ore</option>
+      <option value="item_ore_gold_l">Large Gold Ore</option>
+      <option value="item_ore_gold_m">Medium Gold Ore</option>
+      <option value="item_ore_gold_s">Small Gold Ore</option>
+      <option value="item_ore_hell">Hell Ore</option>
+      <option value="item_ore_silver_l">Large Silver Ore</option>
+      <option value="item_ore_silver_m">Medium Silver Ore</option>
+      <option value="item_ore_silver_s">Small Silver Ore</option>
+      <option value="item_painting_canvas">Painting Canvas</option>
+      <option value="item_paperpack">Paper Pack</option>
+      <option value="item_pelican_case">Suit/Pelican Case</option>
+      <option value="item_pickaxe">Pickaxe</option>
+      <option value="item_pickaxe_cny">CNY Pickaxe</option>
+      <option value="item_pickaxe_cube">Cube Pickaxe</option>
+      <option value="item_pipe">Pipe</option>
+      <option value="item_pinata_bat">Pinata Bat</option>
+      <option value="item_plunger">Plunger</option>
+      <option value="item_pogostick">Pogostick</option>
+      <option value="item_police_baton">Police Baton</option>
+      <option value="item_pumpkin_pie">Pumpkin Pie</option>
+      <option value="item_pumpkinjack">Pumpkin Jack</option>
+      <option value="item_pumpkinjack_small">Small Pumpkin Jack</option>
+      <option value="item_quiver">Quiver</option>
+      <option value="item_quiver_heart">Heart Quiver</option>
+      <option value="item_radioactive_broccoli">Radioactive Broccoli</option>
+      <option value="item_randombox_mobloot_big">Random Box Mob Loot (Big)</option>
+      <option value="item_randombox_mobloot_medium">Random Box Mob Loot (Medium)</option>
+      <option value="item_randombox_mobloot_small">Random Box Mob Loot (Small)</option>
+      <option value="item_randombox_mobloot_weapons">Random Box Mob Loot (Weapons)</option>
+      <option value="item_revolver">Revolver</option>
+      <option value="item_revolver_ammo">Revolver Ammo</option>
+      <option value="item_rope">Rope</option>
+      <option value="item_rpg">RPG</option>
+      <option value="item_rpg_ammo">RPG Ammo</option>
+      <option value="item_rpg_cny">CNY RPG</option>
+      <option value="item_rubberducky">Rubber Ducky</option>
+      <option value="item_ruby">Ruby</option>
+      <option value="item_saddle">Saddle</option>
+      <option value="item_scanner">Scanner</option>
+      <option value="item_scissors">Scissors</option>
+      <option value="item_shield">Shield</option>
+      <option value="item_shield_bones">Bones Shield</option>
+      <option value="item_shield_police">Police Shield</option>
+      <option value="item_shotgun">Shotgun</option>
+      <option value="item_shotgun_ammo">Shotgun Ammo</option>
+      <option value="item_shredder">Shredder</option>
+      <option value="item_shrinking_broccoli">Shrinking Broccoli</option>
+      <option value="item_snowball">Snowball</option>
+      <option value="item_stapler">Stapler</option>
+      <option value="item_stick_armbones">Stick Arm Bones</option>
+      <option value="item_stick_bone">Stick Bone</option>
+      <option value="item_sticker_dispenser">Sticker Dispenser</option>
+      <option value="item_sticky_dynamite">Sticky Dynamite</option>
+      <option value="item_stinky_cheese">Stinky Cheese</option>
+      <option value="item_tablet">Tablet</option>
+      <option value="item_tapedispenser">Tape Dispenser</option>
+      <option value="item_tele_grenade">Tele Grenade</option>
+      <option value="item_theremin">Theremin</option>
+      <option value="item_timebomb">Time Bomb</option>
+      <option value="item_toilet_paper">Toilet Paper</option>
+      <option value="item_toilet_paper_mega">Mega Toilet Paper</option>
+      <option value="item_toilet_paper_roll_empty">Empty Toilet Paper Roll</option>
+      <option value="item_treestick">Tree Stick</option>
+      <option value="item_tripwire_explosive">Tripwire Explosive</option>
+      <option value="item_trophy">Trophy</option>
+      <option value="item_turkey_leg">Turkey Leg</option>
+      <option value="item_turkey_whole">Whole Turkey</option>
+      <option value="item_umbrella">Umbrella</option>
+      <option value="item_umbrella_clover">Clover Umbrella</option>
+      <option value="item_unidentified">Unidentified</option>
+      <option value="item_ukulele">Ukulele</option>
+      <option value="item_ukulele_gold">Gold Ukulele</option>
+      <option value="item_upsidedown_loot">Upside Down Loot</option>
+      <option value="item_uranium_chunk_l">Large Uranium Chunk</option>
+      <option value="item_uranium_chunk_m">Medium Uranium Chunk</option>
+      <option value="item_uranium_chunk_s">Small Uranium Chunk</option>
+      <option value="item_whoopie">Whoopie</option>
+      <option value="item_zipline_gun">Zipline Gun</option>
+      <option value="item_rpg_easter">Easter RPG</option>
+      <option value="item_rpg_ammo_egg">RPG Ammo Egg</option>
+      <option value="item_revolver_gold">Gold Revolver</option>
+    </select>
+    <label class="lbl" style="align-items: center; color: white; font-size: 18px;">
+      <input type="checkbox" id="rngItem" style="width: 25px; height: 25px; margin-right: 8px;">
+      🎲
+    </label>
+  </div>
+  <div class="bg">
+    <button style="margin-bottom:15px" onclick="collapseParent(this,this.parentNode)">Hide</button>
+    <div style="margin-bottom:5px;">
+      <label class="lbl" style="align-items: center; color: white; font-size: 18px;">
+        <input type="checkbox" id="cR" style="width: 25px; height: 25px; margin-right: 8px;">
+        🎲
+      </label>
+      <label onclick="let a=prompt('choose 0-240');if(!(a>=0&&a<=240))a=0;let s=document.getElementById('color-sl');s.value=a;s.dispatchEvent(new Event('input'))" class="slide lbl" style="width:75px;display:inline-block;" id="color">Color: 161</label>
+      <input value="161" id="color-sl" min="0" max="240" type="range">
+    </div>
+    <label class="lbl" style="align-items: center; color: white; font-size: 18px;">
+      <input type="checkbox" id="saR" style="width: 25px; height: 25px; margin-right: 8px;">
+      🎲
+    </label>
+    <label onclick="let a=prompt('choose -124 to 124');a=parseInt(a);if(!(a>=-124&&a<=124))a=0;let s=document.getElementById('sat-sl');s.value=a+124;s.dispatchEvent(new Event('input'))" class="slide lbl" style="width:120px;display:inline-block;" id="sat">Saturation: 120</label>
+    <input value="240" min="0" max="248" id="sat-sl" type="range">
+    <div>
+      <label class="lbl" style="align-items: center; color: white; font-size: 18px;">
+        <input type="checkbox" id="sR" style="width: 25px; height: 25px; margin-right: 8px;">
+        🎲
+      </label>
+      <label onclick="let a=prompt('choose -128 to 127');a=parseInt(a);if(!(a>=-128&&a<=127))a=0;let s=document.getElementById('size-sl');s.value=a+128;s.dispatchEvent(new Event('input'))" class="slide lbl" style="width:75px;display:inline-block;" id="size">Size: 0</label>
+      <input value="128" min="0" max="255" id="size-sl" type="range">
+    </div>
+    <div style="display: flex; align-items: center;">
+      <label class="slide" style="width: 190px; display: inline-block;">How your item will look:</label>
+      <div style="position: relative; display: inline-block; margin-left: 20px;">
+        <img width="100" src="crate.png" id="dispItem">   
+        <div id="overlayM" style="position: absolute; inset: 0px; background: rgba(0, 0, 247, 0.3); pointer-events: none;"></div>
+      </div>
+    </div>
+    <div style="margin-bottom:2px;">
+      <label class="lbl" style="align-items: center; color: white; font-size: 18px;">
+        <input type="checkbox" id="vR" style="width: 25px; height: 25px; margin-right: 8px;">
+        🎲
+      </label>
+      <label onclick="let a=prompt('choose 0-8000');if(!(a>=0&&a<=8000))a=0;let s=document.getElementById('state-sl');s.value=a;s.dispatchEvent(new Event('input'))" class="slide" style="width:180px;display:inline-block;" id="state">Value(Shredders): 0</label>
+      <input value="0" min="0" max="8000" id="state-sl" type="range">
+    </div>
+    <div style="margin-bottom:25px">
+      <label class="lbl" style="align-items: center; color: white; font-size: 18px;">
+        <input type="checkbox" id="aR" style="width: 25px; height: 25px; margin-right: 8px;">
+        🎲
+      </label>
+      <label onclick="let a=prompt('choose 0-2');if(!(a>=0&&a<=2))a=0;let s=document.getElementById('ammo-sl');s.value=a;s.dispatchEvent(new Event('input'))" class="slide" style="width:125px;display:inline-block;" id="ammo">Ammo(Guns): 0</label>
+      <input value="0" min="0" max="2" id="ammo-sl" type="range">
+    </div>
+  </div>
+  <div class="bg" style="margin-bottom:35px">
+    <div>
+      <button style="margin-bottom:15px" onclick="collapseParent(this,this.parentNode.parentNode)">Hide</button>
+    </div>
+    <button style="width:50px;border-radius:50px" onclick="window.alert('Forces all items created using a bypass bag to be on a heartgun. this forces the items to be pushed out of the bag. not recommended as it almost doubles the size of the json file.')"> ? </button>
+    <label class="lbl" style="align-items: center; color: white; font-size: 18px;">
+      <input type="checkbox" id="explodeMode" style="width: 25px; height: 25px; margin-right: 8px;">
+      Explode mode 💥
+    </label>
+    <div>
+      <button style="height: 75px; width: 290px;margin-bottom:30px" onclick="createAlot()">create bypass bag with _ amount of items</button>
+    </div>
+    <div style="margin-bottom:2px;">
+      <button onclick="dlJson()">download json</button>
+    </div>
+  </div>
+  <div class="bg">
+    <h2>Share Your JSON Files</h2>
+    <div style="margin-bottom:15px;">
+      <input type="file" id="jsonFile" accept=".json" style="margin-right:10px;">
+      <input type="text" id="fileName" placeholder="File Name" style="width:200px;">
+      <input type="text" id="authorName" placeholder="Author Name" style="width:200px;">
+      <button onclick="uploadJson()">Upload JSON</button>
+    </div>
+    <h3>Available Files</h3>
+    <div id="fileList" style="max-height:200px; overflow-y:auto;"></div>
+  </div>
+  <div id="rootContainer">
+    <label class="lbl" id="kb" style="background: linear-gradient(to right,#252525, #454545);border: 0px solid rgb(87, 87, 87); color:white; font-size: 25px;padding: 10px;box-shadow: 0px 0px 10px 6px rgba(66, 66, 66, 0.514);display:block;">your json:</label>
+    <label onclick="manageItem(this)" class="itemCl container mRoot" acvalue="rightHand" style="background-color: white; margin-top: 25px" id="rightHandRoot">rightHand</label>
+    <label onclick="manageItem(this)" class="itemCl container mRoot" acvalue="leftHand" style="background-color: white; margin-top: 25px" id="leftHandRoot">leftHand</label>
+    <label onclick="manageItem(this)" class="itemCl container mRoot" acvalue="leftHip" style="background-color: white; margin-top: 25px" id="rightHipRoot">rightHip</label>
+    <label onclick="manageItem(this)" class="itemCl container mRoot" acvalue="rightHip" style="background-color: white; margin-top: 25px" id="leftHipRoot">leftHip</label>
+    <label onclick="manageItem(this)" class="itemCl container mRoot" acvalue="back" style="background-color: white; margin-top: 25px" id="backRoot">back</label>
+  </div>
+  <div style="height:150px;"></div>
+
+  <script>
+    const searchBar = document.getElementById("search-bar");
+    const selectBox = document.getElementById("item-selected");
+
+    searchBar.addEventListener("input", () => {
+      const searchValue = searchBar.value.toLowerCase();
+      for (const option of selectBox.options) {
+        const text = option.text.toLowerCase();
+        option.hidden = !text.includes(searchValue);
+      }
+      const selected = selectBox.selectedOptions[0];
+      if (selected.hidden) {
+        const firstVisible = Array.from(selectBox.options).find(opt => !opt.hidden);
+        if (firstVisible) selectBox.value = firstVisible.value;
+      }
+    });
+
+    function collapseParent(button, bP) {
+      if (button.innerHTML == "Show") {
+        button.innerHTML = "Hide";
+        for (let x = 1; x < bP.children.length; x++) {
+          bP.children[x].style.display = bP.children[x].getAttribute("sS");
+        }
+      } else {
+        button.innerHTML = "Show";
+        for (let x = 1; x < bP.children.length; x++) {
+          bP.children[x].setAttribute("sS", bP.children[x].style.display);
+          bP.children[x].style.display = "none";
+        }
+      }
+    }
+
+    const cl = document.getElementById("color-sl");
+    const sr = document.getElementById("sat-sl");
+    document.getElementById("overlayM").style.background = hueSaturationToRGB(cl.value, document.getElementById("sat-sl").value) + ", 0.3)";
+
+    document.getElementById("color-sl").oninput = function() {
+      document.getElementById("color").textContent = "Color: " + this.value;
+      document.getElementById("overlayM").style.background = hueSaturationToRGB(cl.value, document.getElementById("sat-sl").value) + ", 0.3)";
+    };
+    document.getElementById("sat-sl").oninput = function() {
+      document.getElementById("sat").textContent = "Saturation: " + (this.value - 124);
+      document.getElementById("overlayM").style.background = hueSaturationToRGB(cl.value, document.getElementById("sat-sl").value) + ", 0.3)";
+    };
+    document.getElementById("size-sl").oninput = function() {
+      document.getElementById("size").textContent = "Size: " + (this.value - 128);
+      document.getElementById("dispItem").width = ((this.value) / 127) * 85 + 32;
+    };
+    document.getElementById("state-sl").oninput = function() {
+      document.getElementById("state").textContent = "Value(Shredders): " + this.value;
+    };
+    document.getElementById("ammo-sl").oninput = function() {
+      document.getElementById("ammo").textContent = "Ammo(Guns): " + this.value;
+    };
+
+    var rootCurrent = document.getElementById("rightHandRoot");
+    var previousRoot = null;
+
+    function setRoot(that) {
+      previousRoot = rootCurrent;
+      rootCurrent = that;
+    }
+
+    function manageItem(clickedElement) {
+      clickedElement.style.boxShadow = "2px 6px 16px 6px #0094ff";
+      setTimeout(function() {
+        var choice = parseInt(window.prompt("Enter 1 to set root, 2 to delete, 3 to duplicate, or 4 to hide/show children:"));
+        switch (choice) {
+          case 1:
+            setRoot(clickedElement);
+            break;
+          case 2:
+            if (clickedElement && clickedElement.parentNode && !clickedElement.classList.contains("mRoot")) {
+              clickedElement.parentNode.removeChild(clickedElement);
+            } else {
+              alert('No item to delete!/Can\'t delete right hand!');
+            }
+            break;
+          case 3:
+            if (!clickedElement.parentNode.classList.contains("mRoot") && !clickedElement.classList.contains("mRoot")) {
+              clickedElement.style.boxShadow = "2px 6px 16px 6px #ffffff";
+              const duplicateCount = parseInt(window.prompt("How many times do you want to duplicate this item?"));
+              for (let i = 0; i < duplicateCount; i++) {
+                var duplicate = clickedElement.cloneNode(true);
+                duplicate.onclick = function(event) {
+                  event.stopPropagation();
+                  manageItem(this);
+                };
+                clickedElement.parentNode.appendChild(duplicate);
+              }
+              alert(duplicateCount + ' item(s) duplicated!');
+            } else {
+              window.alert('No, just no. NO!');
+            }
+            break;
+          case 4:
+            var children = clickedElement.children;
+            for (let i = 0; i < children.length; i++) {
+              children[i].style.display = (children[i].style.display === 'none') ? 'block' : 'none';
+            }
+            break;
+          default:
+            alert('Invalid choice! Please enter 1, 2, 3, or 4.');
+        }
+        clickedElement.style.boxShadow = "0px 0px 10px 6px rgba(66, 66, 66, 0.514)";
+        kbUpd();
+      }, 10);
+    }
+
+    function getDepth(element) {
+      let depth = 0;
+      while (element.parentNode && element.parentNode.className !== "mRoot") {
+        depth++;
+        element = element.parentNode;
+      }
+      return depth;
+    }
+
+    var recentItemCreated = null;
+
+    function hueSaturationToRGB(hue, saturation) {
+      const hue2 = (hue / 240) * 325;
+      const sat2 = ((saturation / 248) * 164) + 84;
+      const s = sat2 / 120;
+      const c = (s * 255);
+      const x = c * (1 - Math.abs((hue2 / 60) % 2 - 1));
+      const m = 255 - c;
+      let r, g, b;
+      if (hue2 < 60) {
+        r = c; g = x; b = 0;
+      } else if (hue2 < 120) {
+        r = x; g = c; b = 0;
+      } else if (hue2 < 180) {
+        r = 0; g = c; b = x;
+      } else if (hue2 < 240) {
+        r = 0; g = x; b = c;
+      } else if (hue2 < 300) {
+        r = x; g = 0; b = c;
+      } else {
+        r = c; g = 0; b = x;
+      }
+      r = Math.round(r + m);
+      g = Math.round(g + m);
+      b = Math.round(b + m);
+      let invAmount = saturation / 248;
+      r = Math.round(r * invAmount + (255 - r) * (1 - invAmount));
+      g = Math.round(g * invAmount + (255 - g) * (1 - invAmount));
+      b = Math.round(b * invAmount + (255 - b) * (1 - invAmount));
+      return `rgb(${r}, ${g}, ${b}`;
+    }
+
+    function getStringSizeInKB(str) {
+      const blob = new Blob([str]);
+      return (blob.size / 1024).toFixed(2);
+    }
+
+    var bB = true;
+
+    function addItem() {
+      var rootValid = 1;
+      if (rootCurrent == document.getElementById("rightHandRoot") && document.getElementById("rightHandRoot").children.length > 0 && rootCurrent.classList.contains("mRoot")) {
+        rootValid = 0;
+      }
+      if (rootCurrent == document.getElementById("leftHandRoot") && document.getElementById("leftHandRoot").children.length > 0 && rootCurrent.classList.contains("mRoot")) {
+        rootValid = 0;
+      }
+      if (rootCurrent == document.getElementById("leftHipRoot") && document.getElementById("leftHipRoot").children.length > 0 && rootCurrent.classList.contains("mRoot")) {
+        rootValid = 0;
+      }
+      if (rootCurrent == document.getElementById("rightHipRoot") && document.getElementById("rightHipRoot").children.length > 0 && rootCurrent.classList.contains("mRoot")) {
+        rootValid = 0;
+      }
+      if (rootCurrent == document.getElementById("backRoot") && document.getElementById("backRoot").children.length > 0 && rootCurrent.classList.contains("mRoot")) {
+        rootValid = 0;
+      }
+      if (rootValid == 1) {
+        let color = null;
+        let size = null;
+        let iRNG = null;
+        let item = document.getElementById("item-selected");
+        let satu = null;
+        let ammo = null;
+        let state = null;
+        let amount = null;
+        amount = document.getElementById("Amount").value;
+        if (rootCurrent.classList.contains("mRoot"))
+          amount = 1;
+        for (let i = 0; i < amount; i++) {
+          if (document.getElementById("rngItem").checked && bB) {
+            iRNG = document.getElementById("item-selected").children[Math.floor(Math.random() * document.getElementById("item-selected").children.length)];
+          }
+          if (document.getElementById("sR").checked)
+            size = Math.round(Math.random() * 255) - 128;
+          else
+            size = document.getElementById("size-sl").value - 128;
+          if (document.getElementById("cR").checked)
+            color = Math.round(Math.random() * 240);
+          else
+            color = document.getElementById("color-sl").value;
+          if (document.getElementById("saR").checked)
+            satu = Math.round(Math.random() * 248) - 124;
+          else
+            satu = (document.getElementById("sat-sl").value) - 124;
+          if (document.getElementById("vR").checked)
+            state = Math.round(Math.random() * 8000);
+          else
+            state = document.getElementById("state-sl").value;
+          if (document.getElementById("aR").checked)
+            ammo = Math.round(Math.random() * 2);
+          else
+            ammo = document.getElementById("ammo-sl").value;
+          const itemObj = document.createElement("label");
+          recentItemCreated = itemObj;
+          itemObj.innerHTML = item.options[item.selectedIndex].innerHTML;
+          if (document.getElementById("rngItem").checked && bB) {
+            itemObj.textContent = iRNG.innerHTML;
+          }
+          if (document.getElementById("rngItem").checked && bB)
+            itemObj.setAttribute('ACValue', iRNG.value);
+          else
+            itemObj.setAttribute('ACvalue', item.value);
+          if (color != 0)
+            itemObj.setAttribute('colorHue', color);
+          if (size != 0)
+            itemObj.setAttribute('scaleModifier', size);
+          if (satu != 0)
+            itemObj.setAttribute('colorSaturation', satu);
+          if (item.value == "item_shredder" && state != 0)
+            itemObj.setAttribute('state', state);
+          if (item.value == "item_shotgun" && ammo != 0)
+            itemObj.setAttribute('ammo', ammo);
+          itemObj.className = 'itemCl';
+          itemObj.onclick = function(event) {
+            event.stopPropagation();
+            manageItem(this);
+          };
+          if (rootCurrent) {
+            const depth = getDepth(rootCurrent);
+            rootCurrent.appendChild(itemObj);
+          } else {
+            alert('Root is not set. Please set the root first.');
+          }
+          if (color == 0)
+            satu = 0;
+          recentItemCreated.style.background = hueSaturationToRGB(color, (satu + 124)) + ")";
+        }
+      } else {
+        window.alert("Can't put more than one item into a slot, dum dum 🤣");
+      }
+    }
+
+    function kbUpd() {
+      function getCompiledChildren(rootId) {
+        const root = document.getElementById(rootId);
+        return Array.from(root.children).map(compileItem);
+      }
+      const data = {
+        rightHand: getCompiledChildren("rightHandRoot"),
+        leftHand: getCompiledChildren("leftHandRoot"),
+        leftHip: getCompiledChildren("leftHipRoot"),
+        rightHip: getCompiledChildren("rightHipRoot"),
+        back: getCompiledChildren("backRoot")
+      };
+      const minifiedJsonString = JSON.stringify(data);
+      const sizeInKB = getStringSizeInKB(minifiedJsonString);
+      document.getElementById("kb").innerHTML = "your json (kb: " + sizeInKB + " ): ";
+    }
+
+    function compileChildren(element) {
+      let childrenArray = [];
+      for (let i = 0; i < element.children.length; i++) {
+        const child = element.children[i];
+        childrenArray.push(compileItem(child));
+      }
+      return childrenArray;
+    }
+
+    function compileItem(element) {
+      let itemObject = {
+        "itemID": element.getAttribute('ACvalue')
+      };
+      if (element.getAttribute("colorHue") != null) {
+        itemObject.colorHue = parseFloat(element.getAttribute("colorHue"));
+      }
+      if (element.getAttribute("colorSaturation") != null) {
+        itemObject.colorSaturation = parseFloat(element.getAttribute("colorSaturation"));
+      }
+      if (element.getAttribute("scaleModifier") != null) {
+        itemObject.scaleModifier = parseFloat(element.getAttribute("scaleModifier"));
+      }
+      if (element.getAttribute("state") != null) {
+        itemObject.state = parseInt(element.getAttribute("state"), 10);
+      }
+      if (element.getAttribute("ammo") != null) {
+        itemObject.ammo = parseInt(element.getAttribute("ammo"), 10);
+      }
+      if (element.children.length > 0) {
+        itemObject.children = compileChildren(element);
+      }
+      return itemObject;
+    }
+
+    function dlJson() {
+      function downloadFile(filename, content) {
+        const blob = new Blob([content], { type: 'application/json' });
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = window.URL.createObjectURL(blob);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      const rightHandChildren = document.getElementById("rightHandRoot").children;
+      let rightAry = Array.from(rightHandChildren).map(compileItem);
+      const leftHandChildren = document.getElementById("leftHandRoot").children;
+      let leftAry = Array.from(leftHandChildren).map(compileItem);
+      const leftHChildren = document.getElementById("leftHipRoot").children;
+      let leftHAry = Array.from(leftHChildren).map(compileItem);
+      const rightHChildren = document.getElementById("rightHipRoot").children;
+      let rightHAry = Array.from(rightHChildren).map(compileItem);
+      const backChildren = document.getElementById("backRoot").children;
+      let backAry = Array.from(backChildren).map(compileItem);
+      let download = JSON.stringify({
+        "version": 1,
+        "444mat-json-maker.netlify.app": "",
+        "leftHand": leftAry.length > 0 ? leftAry[0] : {},
+        "rightHand": rightAry.length > 0 ? rightAry[0] : {},
+        "leftHip": leftHAry.length > 0 ? leftHAry[0] : {},
+        "rightHip": rightHAry.length > 0 ? rightHAry[0] : {},
+        "back": backAry.length > 0 ? backAry[0] : {}
+      }, null, 2);
+      download = download.replace(/^\s+/gm, "").replace(/: /g, ":").replace(/, /g, ",").replace(/\s+$/gm, "");
+      download += "\n";
+      downloadFile(window.prompt("Name of json??") + " 444 Maker.json", download);
+    }
+
+    function createAlot() {
+      bB = false;
+      const r = parseInt(window.prompt("Which loadout slot do you want it to go into (1-5)"));
+      let rootOp = document.getElementById("rightHandRoot");
+      if (r == 1) rootOp = document.getElementById("rightHandRoot");
+      if (r == 2) rootOp = document.getElementById("leftHandRoot");
+      if (r == 3) rootOp = document.getElementById("rightHipRoot");
+      if (r == 4) rootOp = document.getElementById("leftHipRoot");
+      if (r == 5) rootOp = document.getElementById("backRoot");
+      const itemSelectElem = document.getElementById("item-selected");
+      let alotAmount = window.prompt(
+        "how many " +
+        itemSelectElem.options[itemSelectElem.selectedIndex].innerHTML +
+        "'s do you want in one bag?"
+      );
+      if (isNaN(alotAmount) || alotAmount < 1) alotAmount = 1;
+      if (alotAmount > 3500) {
+        alotAmount = 3500;
+        window.alert('automatically set to 3500 items');
+      }
+      alotAmount = Math.round(alotAmount);
+      let itemSave = itemSelectElem.value;
+      const select = itemSelectElem;
+      if (rootOp.children.length > 0) {
+        rootOp.removeChild(rootOp.children[0]);
+      }
+      setRoot(rootOp);
+      select.value = "item_backpack_large_base";
+      addItem();
+      setRoot(rootOp.children[0]);
+      let itemsLeft = alotAmount;
+      let bagAmnt = Math.ceil(alotAmount / 23);
+      let layersNeded = Math.ceil(bagAmnt / 23);
+      rootOp.removeChild(rootOp.children[0]);
+      setRoot(rootOp);
+      select.value = "item_backpack_large_base";
+      addItem();
+      let alotRoot = rootOp.children[0];
+      let bagsMade = 0;
+      let itemsMade = 0;
+      let amountSave = document.getElementById("Amount").value;
+      document.getElementById("Amount").value = 1;
+      setRoot(alotRoot);
+      for (let x = 0; x < layersNeded; x++) {
+        for (let x2 = 0; x2 < 23; x2++) {
+          if (bagsMade == bagAmnt) break;
+          select.value = "item_heart_gun";
+          addItem();
+          setRoot(recentItemCreated);
+          select.value = "item_backpack_large_base";
+          addItem();
+          setRoot(recentItemCreated);
+          if (x2 != 22) {
+            for (let x3 = 0; x3 < 23; x3++) {
+              if (itemsMade == alotAmount) break;
+              if (document.getElementById("rngItem").checked)
+                itemSave = document.getElementById("item-selected").children[Math.floor(Math.random() * document.getElementById("item-selected").children.length)].value;
+              if (itemSave.includes("backpack") || itemSave.includes("cardb") || itemSave == "item_shredder" || itemSave == "item_pelican_case" || itemSave.includes("quiver") || itemSave.includes("hover") || document.getElementById("explodeMode").checked) {
+                select.value = "item_heart_gun";
+                addItem();
+                setRoot(recentItemCreated);
+              }
+              if (itemSave.includes("landmine")) {
+                select.value = "item_crossbow";
+                addItem();
+                setRoot(recentItemCreated);
+              }
+              select.value = itemSave;
+              addItem();
+              if (itemSave.includes("backpack") || itemSave.includes("cardb") || itemSave == "item_shredder" || itemSave == "item_pelican_case" || itemSave.includes("quiver") || itemSave.includes("hover") || itemSave.includes("landmine") || document.getElementById("explodeMode").checked)
+                setRoot(recentItemCreated.parentNode.parentNode);
+              itemsMade += 1;
+            }
+          }
+          setRoot(alotRoot);
+          bagsMade += 1;
+        }
+        alotRoot = recentItemCreated;
+      }
+      select.value = itemSave;
+      document.getElementById("Amount").value = amountSave;
+      setRoot(rootOp);
+      window.alert("Done!");
+      kbUpd();
+      bB = true;
+    }
+
+    async function uploadJson() {
+      const fileInput = document.getElementById("jsonFile");
+      const fileName = document.getElementById("fileName").value.trim();
+      const authorName = document.getElementById("authorName").value.trim();
+      if (!fileInput.files[0] || !fileName || !authorName) {
+        alert("Please select a JSON file, enter a file name, and an author name.");
+        return;
+      }
+      if (!fileInput.files[0].name.endsWith('.json')) {
+        alert("Only JSON files are allowed.");
+        return;
+      }
+      const file = fileInput.files[0];
+      try {
+        const text = await file.text();
+        JSON.parse(text);
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("fileName", fileName);
+        formData.append("authorName", authorName);
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: formData
+        });
+        if (response.ok) {
+          alert("File uploaded successfully!");
+          fetchFileList();
+        } else {
+          alert("Error uploading file.");
+        }
+      } catch (e) {
+        alert("Invalid JSON file.");
+      }
+    }
+
+    async function fetchFileList() {
+      const response = await fetch("/api/files");
+      const files = await response.json();
+      const fileList = document.getElementById("fileList");
+      fileList.innerHTML = "";
+      files.forEach(file => {
+        const div = document.createElement("div");
+        div.style.margin = "5px";
+        const link = document.createElement("a");
+        link.href = `/api/download/${file}`;
+        link.textContent = file;
+        link.style.color = "#03fc73";
+        link.style.textDecoration = "none";
+        div.appendChild(link);
+        fileList.appendChild(div);
+      });
+    }
+
+    window.onload = fetchFileList;
+  </script>
+</body>
+</html>
