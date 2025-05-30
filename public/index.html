@@ -19,6 +19,77 @@
     button { background: linear-gradient(to right, #1aa33f, #98e897); color: white; border: none; padding: 10px; cursor: pointer; }
     button:hover { background: linear-gradient(to right, #158a34, #80d080); }
     input, select { padding: 5px; margin: 5px; }
+    
+    /* New modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+    }
+    .modal-content {
+      background: linear-gradient(to right, #252525, #454545);
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .modal-title {
+      color: white;
+      font-size: 20px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .modal-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .modal-btn {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+    .modal-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .modal-btn.set-root {
+      background: linear-gradient(to right, #4CAF50, #8BC34A);
+      color: white;
+    }
+    .modal-btn.delete {
+      background: linear-gradient(to right, #F44336, #E91E63);
+      color: white;
+    }
+    .modal-btn.duplicate {
+      background: linear-gradient(to right, #2196F3, #03A9F4);
+      color: white;
+    }
+    .modal-btn.toggle-children {
+      background: linear-gradient(to right, #FF9800, #FFC107);
+      color: white;
+    }
+    .modal-btn.cancel {
+      background: linear-gradient(to right, #9E9E9E, #607D8B);
+      color: white;
+    }
+    .duplicate-input {
+      padding: 8px;
+      margin-top: 10px;
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
   </style>
 </head>
 <body>
@@ -279,6 +350,24 @@
   </div>
   <div style="height:150px;"></div>
 
+  <!-- Modal Dialog for Item Actions -->
+  <div id="itemModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-title">Item Actions</div>
+      <div class="modal-buttons">
+        <button class="modal-btn set-root" onclick="handleModalAction(1)">Set as Root</button>
+        <button class="modal-btn delete" onclick="handleModalAction(2)">Delete Item</button>
+        <button class="modal-btn duplicate" onclick="showDuplicateInput()">Duplicate Item</button>
+        <button class="modal-btn toggle-children" onclick="handleModalAction(4)">Toggle Children</button>
+        <button class="modal-btn cancel" onclick="closeModal()">Cancel</button>
+      </div>
+      <div id="duplicateInputContainer" style="display:none; margin-top:10px;">
+        <input type="number" id="duplicateCount" class="duplicate-input" placeholder="Number of copies" min="1" value="1">
+        <button class="modal-btn duplicate" style="width:100%; margin-top:5px;" onclick="handleModalAction(3)">Confirm Duplicate</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const searchBar = document.getElementById("search-bar");
     const selectBox = document.getElementById("item-selected");
@@ -342,50 +431,68 @@
       rootCurrent = that;
     }
 
+    let currentClickedElement = null;
+
+    function showDuplicateInput() {
+      document.getElementById('duplicateInputContainer').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('itemModal').style.display = 'none';
+      document.getElementById('duplicateInputContainer').style.display = 'none';
+      if (currentClickedElement) {
+        currentClickedElement.style.boxShadow = "0px 0px 10px 6px rgba(66, 66, 66, 0.514)";
+        currentClickedElement = null;
+      }
+    }
+
+    function handleModalAction(action) {
+      if (!currentClickedElement) return;
+      
+      switch (action) {
+        case 1: // Set root
+          setRoot(currentClickedElement);
+          break;
+        case 2: // Delete
+          if (currentClickedElement && currentClickedElement.parentNode && !currentClickedElement.classList.contains("mRoot")) {
+            currentClickedElement.parentNode.removeChild(currentClickedElement);
+          } else {
+            alert('No item to delete!/Can\'t delete root items!');
+          }
+          break;
+        case 3: // Duplicate
+          const duplicateCount = parseInt(document.getElementById('duplicateCount').value) || 1;
+          if (!currentClickedElement.parentNode.classList.contains("mRoot") && !currentClickedElement.classList.contains("mRoot")) {
+            for (let i = 0; i < duplicateCount; i++) {
+              var duplicate = currentClickedElement.cloneNode(true);
+              duplicate.onclick = function(event) {
+                event.stopPropagation();
+                manageItem(this);
+              };
+              currentClickedElement.parentNode.appendChild(duplicate);
+            }
+          } else {
+            window.alert('Cannot duplicate root items!');
+          }
+          break;
+        case 4: // Toggle children
+          var children = currentClickedElement.children;
+          for (let i = 0; i < children.length; i++) {
+            children[i].style.display = (children[i].style.display === 'none') ? 'block' : 'none';
+          }
+          break;
+      }
+      
+      kbUpd();
+      closeModal();
+    }
+
     function manageItem(clickedElement) {
       clickedElement.style.boxShadow = "2px 6px 16px 6px #0094ff";
-      setTimeout(function() {
-        var choice = parseInt(window.prompt("Enter 1 to set root, 2 to delete, 3 to duplicate, or 4 to hide/show children:"));
-        switch (choice) {
-          case 1:
-            setRoot(clickedElement);
-            break;
-          case 2:
-            if (clickedElement && clickedElement.parentNode && !clickedElement.classList.contains("mRoot")) {
-              clickedElement.parentNode.removeChild(clickedElement);
-            } else {
-              alert('No item to delete!/Can\'t delete right hand!');
-            }
-            break;
-          case 3:
-            if (!clickedElement.parentNode.classList.contains("mRoot") && !clickedElement.classList.contains("mRoot")) {
-              clickedElement.style.boxShadow = "2px 6px 16px 6px #ffffff";
-              const duplicateCount = parseInt(window.prompt("How many times do you want to duplicate this item?"));
-              for (let i = 0; i < duplicateCount; i++) {
-                var duplicate = clickedElement.cloneNode(true);
-                duplicate.onclick = function(event) {
-                  event.stopPropagation();
-                  manageItem(this);
-                };
-                clickedElement.parentNode.appendChild(duplicate);
-              }
-              alert(duplicateCount + ' item(s) duplicated!');
-            } else {
-              window.alert('No, just no. NO!');
-            }
-            break;
-          case 4:
-            var children = clickedElement.children;
-            for (let i = 0; i < children.length; i++) {
-              children[i].style.display = (children[i].style.display === 'none') ? 'block' : 'none';
-            }
-            break;
-          default:
-            alert('Invalid choice! Please enter 1, 2, 3, or 4.');
-        }
-        clickedElement.style.boxShadow = "0px 0px 10px 6px rgba(66, 66, 66, 0.514)";
-        kbUpd();
-      }, 10);
+      currentClickedElement = clickedElement;
+      
+      // Show the modal
+      document.getElementById('itemModal').style.display = 'block';
     }
 
     function getDepth(element) {
